@@ -3,13 +3,14 @@ const readlineSync = require('readline-sync');
 const fs = require('fs');
 const humanDelay = async (time) => new Promise(resolve=>setTimeout(resolve,time*(1+Math.random())))
 const timeout = millis => new Promise(resolve => setTimeout(resolve, millis))
+const open = require('open');
 
 const options = { waitUntil: 'networkidle2', timeout: 120000 };
 
 async function processLineByLine() {
 	
 	var looper = readlineSync.question('Mau Berapa Kali : ');
-	for (let i = 0; i < looper; i++) {
+	for (let i = 1; i <= looper; i++) {
 		console.log("[+] Putaran Ke - " + i);
 		await run();
 	}
@@ -31,7 +32,7 @@ async function run () {
 			var hintAnswer = nama[1].substr(0,3) + makeid(5);
 			var saveData = '';
 			var browser = await puppeteer.launch({
-				headless: false,
+				headless: true,
 				defaultViewport: null,
 					args: [ '--disable-features=IsolateOrigins,site-per-process',
 							'--disable-web-security',
@@ -64,6 +65,10 @@ async function run () {
 			await humanDelay(2000);
 			await page.click('#root > div > div.grid > div > main > div > div > div > form > div.human-confirmation-wrapper.can-switch > div > div.captcha-wrapper > div.form__field.registration__captcha > div > div.captcha__footer.clearfix > div');
 			await humanDelay(2000);
+
+			const element = await page.$('#root > div > div.grid > div > main > div > div > div > form > div.human-confirmation-wrapper.can-switch > div > div.captcha-wrapper > div.form__field.registration__captcha > div');      
+			await element.screenshot({path: 'captcha.jpg'});
+			await open('captcha.jpg', {wait: true});
 			
 			var capcay = readlineSync.question('Tulis disini captcha yang lu baca tod : ');
 			
