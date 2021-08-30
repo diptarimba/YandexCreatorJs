@@ -1,0 +1,18 @@
+{
+  "name": "yandex",
+  "version": "1.0.0",
+  "description": "Yandex Mail Creator",
+  "main": "yandex.js",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "node-random-name": "^1.0.1",
+    "puppeteer": "^10.2.0",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "diptarimba",
+  "license": "ISC"
+}
